@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1 class="text-2xl font-bold mb-4">Register</h1>
+{% if messages %}
+    <div class="mb-4">
+        {% for message in messages %}
+            <div class="bg-{% if message.tags == 'error' %}red{% else %}green{% endif %}-100 text-{% if message.tags == 'error' %}red{% else %}green{% endif %}-700 p-2 rounded">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+<form method="post" class="bg-white p-4 rounded shadow-md">
+    {% csrf_token %}
+    <div class="mb-4">
+        <label class="block text-gray-700">Username</label>
+        <input type="text" name="username" class="w-full p-2 border rounded" required>
+    </div>
+    <div class="mb-4">
+        <label class="block text-gray-700">Password</label>
+        <input type="password" name="password" class="w-full p-2 border rounded" required>
+    </div>
+    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Register</button>
+</form>
+<a href="{% url 'login' %}" class="text-blue-500 mt-2 inline-block">Back to Login</a>
+{% endblock %}

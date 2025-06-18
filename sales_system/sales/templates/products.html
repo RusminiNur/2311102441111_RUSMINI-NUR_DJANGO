@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1 class="text-2xl font-bold mb-4">Products</h1>
+<form method="post" class="mb-6 bg-white p-4 rounded shadow-md">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Add Product</button>
+</form>
+<table class="w-full bg-white shadow-md rounded">
+    <thead>
+        <tr class="bg-gray-200">
+            <th class="p-2 text-left">Name</th>
+            <th class="p-2 text-left">Supplier</th>
+            <th class="p-2 text-left">Price</th>
+            <th class="p-2 text-left">Stock</th>
+            <th class="p-2 text-left">Created At</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for product in products %}
+        <tr class="border-t">
+            <td class="p-2">{{ product.name }}</td>
+            <td class="p-2">{{ product.supplier.name }}</td>
+            <td class="p-2">Rp {{ product.price }}</td> <!-- Changed from $ to Rp -->
+            <td class="p-2">{{ product.stock }}</td>
+            <td class="p-2">{{ product.created_at|date:"Y-m-d" }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5" class="p-2 text-center">No products found.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
